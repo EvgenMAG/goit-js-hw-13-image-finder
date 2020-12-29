@@ -1,3 +1,8 @@
+import errorsNotifications from './notification.js';
+
+const errorMessage = 'Nothing has been found. Try again!';
+// const fatalError = 'Opss!Something gone wrong. Try later! ';
+
 const key = '19688352-7c772d0e763de7aee127ab308';
 
 const newService = {
@@ -20,14 +25,16 @@ const newService = {
       .then(response => {
         return response.json();
       })
-      .then(({ hits }) => {
+      .then(({ hits, totalHits }) => {
         if (hits.length === 0) {
-          throw new Error('Error');
+          throw new Error('Error feching data');
         }
         this.increment();
-        return { hits };
+        return { hits, totalHits };
       })
       .catch(error => {
+        errorsNotifications(errorMessage);
+
         return error;
       });
   },

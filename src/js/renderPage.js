@@ -3,42 +3,46 @@ import card from '../templates/card.hbs';
 import loader from './loaderBtn.js';
 import newService from './photos-service';
 
-import errorsNotifications from './notification.js';
+// import errorsNotifications from './notification.js';
 
-const errorMessage = 'Nothing has been found. Try again!';
-const fatalError = 'Opss!Something gone wrong. Try later! ';
+// const errorMessage = 'Nothing has been found. Try again!';
+// const fatalError = 'Opss!Something gone wrong. Try again! ';
 
 export default {
   renderPage() {
     loader.showSpinner();
-    newService
-      .fetchContent()
-      .then(data => {
-        if (data.message === 'Error') {
-          errorsNotifications(errorMessage);
-          refs.btn.style.display = 'none';
-          return;
-        }
-
-        if (data.hits.length < newService.perPage) {
-          refs.btn.style.display = 'none';
-        }
-
-        loader.showLoadBtn();
-        loader.closeSpinner();
-
-        let markup = card(data.hits);
-        refs.cardsList.insertAdjacentHTML('beforeend', markup);
-        window.scrollTo({
-          top: newService.pageScroll,
-          behavior: 'smooth',
-        });
-      })
-      .catch(() => {
-        errorsNotifications(fatalError);
+    newService.fetchContent().then(({ hits, totalHits }) => {
+      console.log({ hits, totalHits });
+      console.log(newService.perPage);
+      console.log(newService.page);
+      console.log(newService.perPage * newService.page);
+      if (!hits) {
         refs.btn.style.display = 'none';
+        return;
+      }
+      if (
+        totalHits + newService.perPage <
+        newService.perPage * newService.page
+      ) {
+        refs.btn.style.display = 'none';
+      }
+
+      loader.showLoadBtn();
+      loader.closeSpinner();
+
+      let markup = card(hits);
+      refs.cardsList.insertAdjacentHTML('beforeend', markup);
+      window.scrollTo({
+        top: newService.pageScroll,
+        behavior: 'smooth',
       });
+      // window.scrollBy({
+      //   top: window.innerHeight,
+      //   behavior: 'smooth',
+      // });
+    });
   },
+
   topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
