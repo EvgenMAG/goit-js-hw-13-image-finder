@@ -4,7 +4,6 @@ export default {
   showLoadBtn() {
     refs.btn.classList.remove('is-hidden');
   },
-
   showSpinner() {
     refs.spinner.classList.remove('is-hidden');
     refs.span.textContent = 'Loading...';

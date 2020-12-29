@@ -1,7 +1,6 @@
-import loader from './loaderBtn.js';
 import newService from './photos-service';
 import refs from './refs.js';
-import renderPage from './renderPage.js';
+import render from './renderPage.js';
 
 function onSubmitSearch(e) {
   e.preventDefault();
@@ -11,12 +10,9 @@ function onSubmitSearch(e) {
   refs.cardsList.innerHTML = '';
 
   newService.resetPage();
-  loader.closeSpinner();
 
-  newService.fetchContent().then(photoSet => {
-    renderPage(photoSet);
-    loader.showLoadBtn();
-  });
+  refs.btn.style.display = 'block';
+  render.renderPage();
 
   refs.form.reset();
 }
