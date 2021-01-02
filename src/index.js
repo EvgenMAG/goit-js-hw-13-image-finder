@@ -8,4 +8,4 @@ import render from './js/renderPage.js';
 refs.form.addEventListener('submit', onSubmitSearch);
 refs.btn.addEventListener('click', click.onClickAction);
 refs.cardsList.addEventListener('click', click.modalOpen);
-refs.btnTop.addEventListener('click', render.topFunction);
+refs.btnTop.addEventListener('click', render.scrollToTop);

@@ -1,18 +1,27 @@
-import newService from './photos-service';
+import fetchLogic from './apiService';
 import refs from './refs.js';
-import render from './renderPage.js';
+import pageRender from './renderPage.js';
+
+import errorNotification from './notification.js';
+
+const constant_emptyField =
+  'You forgot to ask us something. PLease write your request! ';
 
 function onSubmitSearch(e) {
   e.preventDefault();
 
   const inputRequest = e.target.elements.query.value;
-  newService.query = inputRequest;
+  if (inputRequest === '') {
+    errorNotification(constant_emptyField);
+    return;
+  }
+  fetchLogic.query = inputRequest;
   refs.cardsList.innerHTML = '';
 
-  newService.resetPage();
+  fetchLogic.resetPage();
 
   refs.btn.style.display = 'block';
-  render.renderPage();
+  pageRender.renderPage();
 
   refs.form.reset();
 }

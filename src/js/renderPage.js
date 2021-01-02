@@ -1,28 +1,19 @@
 import refs from './refs.js';
-import card from '../templates/card.hbs';
+import template from '../templates/cards.hbs';
 import loader from './loaderBtn.js';
-import newService from './photos-service';
-
-// import errorsNotifications from './notification.js';
-
-// const errorMessage = 'Nothing has been found. Try again!';
-// const fatalError = 'Opss!Something gone wrong. Try again! ';
+import fetchLogic from './apiService';
 
 export default {
   renderPage() {
     loader.showSpinner();
-    newService.fetchContent().then(({ hits, totalHits }) => {
-      console.log({ hits, totalHits });
-      console.log(newService.perPage);
-      console.log(newService.page);
-      console.log(newService.perPage * newService.page);
+    fetchLogic.fetchContent().then(({ hits, totalHits }) => {
       if (!hits) {
         refs.btn.style.display = 'none';
         return;
       }
       if (
-        totalHits + newService.perPage <
-        newService.perPage * newService.page
+        totalHits + fetchLogic.perPage <
+        fetchLogic.perPage * fetchLogic.page
       ) {
         refs.btn.style.display = 'none';
       }
@@ -30,30 +21,29 @@ export default {
       loader.showLoadBtn();
       loader.closeSpinner();
 
-      let markup = card(hits);
+      const markup = template(hits);
       refs.cardsList.insertAdjacentHTML('beforeend', markup);
-      window.scrollTo({
-        top: newService.pageScroll,
+
+      window.scrollBy({
+        top: window.innerHeight,
         behavior: 'smooth',
       });
-      // window.scrollBy({
-      //   top: window.innerHeight,
-      //   behavior: 'smooth',
-      // });
     });
   },
 
-  topFunction() {
+  scrollToTop() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   },
 };
 
 window.onscroll = function () {
-  scrollFunction();
+  handleScroll();
 };
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+function handleScroll() {
+  let bodyScrollTop = document.body.scrollTop;
+  let elementScrollTop = document.documentElement.scrollTop;
+  if (bodyScrollTop > 20 || elementScrollTop > 20) {
     refs.btnTop.style.display = 'block';
   } else {
     refs.btnTop.style.display = 'none';
