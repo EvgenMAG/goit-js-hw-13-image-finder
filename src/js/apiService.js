@@ -1,5 +1,3 @@
-import errorNotification from './notification.js';
-
 const key = '19688352-7c772d0e763de7aee127ab308';
 
 const newService = {

@@ -5,7 +5,7 @@ import fetchLogic from './apiService';
 import handleErrors from './notification.js';
 
 const ERROR_NOTIFICATION = 'Nothing has been found. Try again!';
-const FORM_HEIGTH = 120;
+const FORM_HEIGTH = 130;
 
 export default {
   async renderPage() {
