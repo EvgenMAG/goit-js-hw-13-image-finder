@@ -5,12 +5,12 @@ import fetchLogic from './apiService';
 import handleErrors from './notification.js';
 
 const ERROR_NOTIFICATION = 'Nothing has been found. Try again!';
-const SCROLL_HEIGTH = window.innerHeight - 130;
+
+// Высота кнопки и паддингов
 
 export default {
   async renderPage() {
     loader.showSpinner();
-
     try {
       const { hits, totalHits } = await fetchLogic.fetchContent();
 
@@ -26,8 +26,9 @@ export default {
       refs.cardsList.insertAdjacentHTML('beforeend', markup);
 
       if (fetchLogic.page !== 2) {
+        const SCROLL_HEIGTH = refs.btn.clientHeight + 60;
         window.scrollBy({
-          top: SCROLL_HEIGTH,
+          top: window.innerHeight - SCROLL_HEIGTH,
           behavior: 'smooth',
         });
       }

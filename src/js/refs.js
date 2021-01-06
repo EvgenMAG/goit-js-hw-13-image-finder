@@ -5,4 +5,5 @@ export default {
   spinner: document.querySelector('.spinner-border-sm'),
   span: document.querySelector('.visually-hidden'),
   btnTop: document.getElementById('myBtn'),
+  container: document.getSelection('.mainContainer'),
 };

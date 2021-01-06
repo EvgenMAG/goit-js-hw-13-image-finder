@@ -19,6 +19,11 @@ body {
   background-image: url('./images/bg-pattern.png');
 }
 
+.mainContainer {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
 .search-form {
   margin: 20px;
   text-align: center;
@@ -91,7 +96,6 @@ img {
 .btn-primary.btn {
   text-align: center;
   margin: auto;
-  margin-bottom: 70px;
 }
 
 .is-hidden {
