@@ -5,7 +5,7 @@ import fetchLogic from './apiService';
 import handleErrors from './notification.js';
 
 const ERROR_NOTIFICATION = 'Nothing has been found. Try again!';
-const FORM_HEIGTH = 130;
+const SCROLL_HEIGTH = window.innerHeight - 130;
 
 export default {
   async renderPage() {
@@ -27,7 +27,7 @@ export default {
 
       if (fetchLogic.page !== 2) {
         window.scrollBy({
-          top: window.innerHeight - FORM_HEIGTH,
+          top: SCROLL_HEIGTH,
           behavior: 'smooth',
         });
       }
