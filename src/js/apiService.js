@@ -15,27 +15,6 @@ const newService = {
     this.searchReq = request;
   },
 
-  // fetchContent() {
-  //   const baseURL = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchReq}&page=${this.page}&per_page=${this.perPage}&key=${key}`;
-  //   return fetch(baseURL)
-  //     .then(response => {
-  //       if (!response.ok) throw new Error('Error feching data');
-  //       return response.json();
-  //     })
-  //     .then(({ hits, totalHits }) => {
-  //       if (hits.length === 0) {
-  //         throw new Error('Error feching data');
-  //       }
-  //       this.increment();
-  //       return { hits, totalHits };
-  //     })
-  //     .catch(error => {
-  //       errorNotification(constant_errorMessage);
-
-  //       return error;
-  //     });
-  // },
-
   async fetchContent() {
     try {
       const baseURL = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchReq}&page=${this.page}&per_page=${this.perPage}&key=${key}`;

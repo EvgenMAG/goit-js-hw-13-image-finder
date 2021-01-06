@@ -10,35 +10,6 @@ const FORM_HEIGTH = 120;
 export default {
   async renderPage() {
     loader.showSpinner();
-    // fetchLogic
-    //   .fetchContent()
-    //   .then(({ hits, totalHits }) => {
-    //     if (!hits) {
-    //       refs.btn.style.display = 'none';
-    //       return;
-    //     }
-    //     if (
-    //       totalHits + fetchLogic.perPage <
-    //       fetchLogic.perPage * fetchLogic.page
-    //     ) {
-    //       refs.btn.style.display = 'none';
-    //     }
-
-    //     loader.showLoadBtn();
-    //     loader.closeSpinner();
-
-    //     const markup = template(hits);
-    //     refs.cardsList.insertAdjacentHTML('beforeend', markup);
-
-    //     window.scrollBy({
-    //       top: window.innerHeight,
-    //       behavior: 'smooth',
-    //     });
-    //   })
-    //   .catch(() => {
-    //     console.dir('ERROR');
-    //     handleErrors(ERROR_NOTIFICATION);
-    //   });
 
     try {
       const { hits, totalHits } = await fetchLogic.fetchContent();
