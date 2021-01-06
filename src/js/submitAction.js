@@ -2,9 +2,9 @@ import fetchLogic from './apiService';
 import refs from './refs.js';
 import pageRender from './renderPage.js';
 
-import errorNotification from './notification.js';
+import handleErrors from './notification.js';
 
-const constant_emptyField =
+const EMPTYFINPUT_NOTIFICATION =
   'You forgot to ask us something. PLease write your request! ';
 
 function onSubmitSearch(e) {
@@ -12,7 +12,7 @@ function onSubmitSearch(e) {
 
   const inputRequest = e.target.elements.query.value;
   if (inputRequest === '') {
-    errorNotification(constant_emptyField);
+    handleErrors(EMPTYFINPUT_NOTIFICATION);
     return;
   }
   fetchLogic.query = inputRequest;

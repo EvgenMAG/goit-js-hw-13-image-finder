@@ -6,7 +6,7 @@ import 'material-design-icons/iconfont/material-icons.css';
 defaults.styling = 'material';
 defaults.icons = 'material';
 
-function errorNotification(text) {
+function handleErrors(text) {
   error({
     text: text,
     title: 'Oh No!',
@@ -24,4 +24,4 @@ function errorNotification(text) {
   });
 }
 
-export default errorNotification;
+export default handleErrors;

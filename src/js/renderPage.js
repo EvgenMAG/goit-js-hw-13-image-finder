@@ -2,33 +2,68 @@ import refs from './refs.js';
 import template from '../templates/cards.hbs';
 import loader from './loaderBtn.js';
 import fetchLogic from './apiService';
+import handleErrors from './notification.js';
+
+const ERROR_NOTIFICATION = 'Nothing has been found. Try again!';
+const FORM_HEIGTH = 120;
 
 export default {
-  renderPage() {
+  async renderPage() {
     loader.showSpinner();
-    fetchLogic.fetchContent().then(({ hits, totalHits }) => {
-      if (!hits) {
-        refs.btn.style.display = 'none';
-        return;
-      }
+    // fetchLogic
+    //   .fetchContent()
+    //   .then(({ hits, totalHits }) => {
+    //     if (!hits) {
+    //       refs.btn.style.display = 'none';
+    //       return;
+    //     }
+    //     if (
+    //       totalHits + fetchLogic.perPage <
+    //       fetchLogic.perPage * fetchLogic.page
+    //     ) {
+    //       refs.btn.style.display = 'none';
+    //     }
+
+    //     loader.showLoadBtn();
+    //     loader.closeSpinner();
+
+    //     const markup = template(hits);
+    //     refs.cardsList.insertAdjacentHTML('beforeend', markup);
+
+    //     window.scrollBy({
+    //       top: window.innerHeight,
+    //       behavior: 'smooth',
+    //     });
+    //   })
+    //   .catch(() => {
+    //     console.dir('ERROR');
+    //     handleErrors(ERROR_NOTIFICATION);
+    //   });
+
+    try {
+      const { hits, totalHits } = await fetchLogic.fetchContent();
+
       if (
         totalHits + fetchLogic.perPage <
         fetchLogic.perPage * fetchLogic.page
       ) {
         refs.btn.style.display = 'none';
       }
-
       loader.showLoadBtn();
       loader.closeSpinner();
-
-      const markup = template(hits);
+      const markup = await template(hits);
       refs.cardsList.insertAdjacentHTML('beforeend', markup);
 
-      window.scrollBy({
-        top: window.innerHeight,
-        behavior: 'smooth',
-      });
-    });
+      if (fetchLogic.page !== 2) {
+        window.scrollBy({
+          top: window.innerHeight - FORM_HEIGTH,
+          behavior: 'smooth',
+        });
+      }
+    } catch (error) {
+      refs.btn.style.display = 'none';
+      handleErrors(ERROR_NOTIFICATION);
+    }
   },
 
   scrollToTop() {
@@ -40,6 +75,7 @@ export default {
 window.onscroll = function () {
   handleScroll();
 };
+
 function handleScroll() {
   let bodyScrollTop = document.body.scrollTop;
   let elementScrollTop = document.documentElement.scrollTop;
