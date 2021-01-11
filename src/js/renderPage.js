@@ -26,9 +26,9 @@ export default {
       refs.cardsList.insertAdjacentHTML('beforeend', markup);
 
       if (fetchLogic.page !== 2) {
-        const SCROLL_HEIGTH = refs.btn.clientHeight + 60;
+        const scrollHeigth = refs.btn.clientHeight + 60;
         window.scrollBy({
-          top: window.innerHeight - SCROLL_HEIGTH,
+          top: window.innerHeight - scrollHeigth,
           behavior: 'smooth',
         });
       }
